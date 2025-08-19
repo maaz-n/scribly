@@ -9,7 +9,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
     })
 
     if (session) {
-        redirect('/')
+        redirect('/explore')
     }
     return (
         <div>

@@ -18,7 +18,7 @@ interface NavbarProps {
   isAuthenticated: boolean
 }
 
-export default function Navbar({isAuthenticated}: NavbarProps) {
+export default function Navbar({ isAuthenticated }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -59,17 +59,22 @@ export default function Navbar({isAuthenticated}: NavbarProps) {
               {link.name}
             </Link>
           ))}
-          <ModeSwitcher/>
-          {isAuthenticated ? <LogoutButton/> : null}
+          <ModeSwitcher />
+          {isAuthenticated ? <LogoutButton /> : null}
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+
+          <ModeSwitcher />
+          <button
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 "
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+
+          </button>
+        </div>
       </motion.div>
 
       {/* Mobile Menu */}
@@ -93,6 +98,7 @@ export default function Navbar({isAuthenticated}: NavbarProps) {
                   {link.name}
                 </Link>
               ))}
+              {isAuthenticated ? <LogoutButton /> : null}
             </div>
           </motion.div>
         )}
