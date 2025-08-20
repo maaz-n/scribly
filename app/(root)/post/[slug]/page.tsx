@@ -2,16 +2,21 @@ import React from 'react'
 import Image from 'next/image'
 import { auth } from '@/lib/auth'
 import { getPostWithAuthorBySlug } from '@/server/post'
-import { PenIcon, Trash2Icon } from 'lucide-react'
 import { headers } from 'next/headers'
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { Button } from '@/components/ui/button'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params
@@ -72,7 +77,7 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                 {isAuthor && (
                     <div className='flex justify-end items-center gap-5 mb-3'>
                         <EditButton/>
-                        <DeleteButton/>
+                        <DeleteButton postId={post.post.id}/>
                     </div>
                 )}
 

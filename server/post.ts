@@ -29,7 +29,7 @@ export const createPost = async (data: CreatePost) => {
 export const getPosts = async () => {
     try {
         const posts = await db.select().from(post).leftJoin(user, eq(post.authorId, user.id))
-        return posts
+        return posts.reverse()
     } catch (error) {
         console.error(error)
     }
@@ -49,4 +49,14 @@ export const getAuthorName = async (authorId: string) => {
     const author =  await db.select().from(user).where(eq(user.id, authorId))
     const authorName = author[0].name
     return authorName
+}
+
+export const deletePost = async (id: string) => {
+    try {
+        await db.delete(post).where(eq(post.id, id))
+        return { success: true, message: "Post deleted!" }
+    } catch (error) {
+        const e = error as Error
+        return { success: false, message: e.message }
+    }
 }

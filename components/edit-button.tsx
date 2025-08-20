@@ -6,16 +6,16 @@ import { Button } from './ui/button'
 const EditButton = () => {
     return (
 
-        <Button variant={"ghost"}>
-            <Tooltip>
-                <TooltipTrigger>
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button variant={"ghost"}>
                     <PenIcon size={20} />
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p>Edit</p>
-                </TooltipContent>
-            </Tooltip>
-        </Button>
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Edit</p>
+            </TooltipContent>
+        </Tooltip>
     )
 }
 
