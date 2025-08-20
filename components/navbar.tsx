@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { ModeSwitcher } from "./mode-switcher"
 import LogoutButton from "./logout-button"
+import CreatePostButton from "./create-post-button"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -60,7 +61,10 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
             </Link>
           ))}
           <ModeSwitcher />
-          {isAuthenticated ? <LogoutButton /> : null}
+          {isAuthenticated && <div className="flex gap-3 w-fit">
+            <CreatePostButton />
+            <LogoutButton />
+          </div>}
         </div>
 
         {/* Mobile Menu Button */}
@@ -98,7 +102,10 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
                   {link.name}
                 </Link>
               ))}
-              {isAuthenticated ? <LogoutButton /> : null}
+              {isAuthenticated && <div className="flex gap-3 w-fit">
+                <CreatePostButton />
+                <LogoutButton />
+              </div>}
             </div>
           </motion.div>
         )}
