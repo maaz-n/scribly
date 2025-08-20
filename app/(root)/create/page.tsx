@@ -13,6 +13,12 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import React from "react"
+import { authClient } from "@/lib/auth-client"
+import { createPost } from "@/server/post"
+import { nanoid } from "nanoid"
+import { toast } from "sonner"
+import { redirect } from "next/navigation"
 
 const formSchema = z.object({
     imageUrl: z.url("Enter a valid URL"),
@@ -33,8 +39,45 @@ export default function CreateBlogPage() {
         },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    async function getAuthorId() {
+        const session = await authClient.getSession()
+        const authorId = session.data?.user.id
+        if (!authorId) {
+            console.error("Author not found")
+            return
+        }
+        return authorId
+    }
+
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            const authorId = await getAuthorId()
+            if (!authorId) {
+                return null
+            }
+            const postId = nanoid(20)
+            const response = await createPost({
+                id: postId,
+                authorId,
+                ...values,
+            })
+
+            if(response.success){
+                toast.success(response.message)
+                redirect("/explore")
+            }else{
+                toast.error(response.message)
+            }
+
+        } catch (error) {
+
+        }
+
+    }
+
+    function slugify(title: string) {
+        const slug = title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
+        return slug
     }
 
     return (
@@ -84,7 +127,12 @@ export default function CreateBlogPage() {
                                     <FormItem>
                                         <FormLabel>Title</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Enter the title of your blog..." {...field} />
+                                            <Input placeholder="Enter the title of your blog..." {...field} onChange={(e) => {
+                                                field.onChange(e.target.value)
+                                                const title = e.target.value
+                                                const slug = slugify(title)
+                                                form.setValue("slug", slug)
+                                            }} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
