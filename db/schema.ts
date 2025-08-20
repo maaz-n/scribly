@@ -66,6 +66,7 @@ export const post = pgTable("post", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),
   content: text("content").notNull(),
+  slug: text("slug").notNull(),
   authorId: text("authorId").notNull().references(() => user.id, {onDelete: "cascade"}),
   createdAt: timestamp("created_at").$defaultFn(() => new Date()),
   updatedAt: timestamp("updated_at").$defaultFn(() => new Date()),
