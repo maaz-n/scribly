@@ -18,7 +18,7 @@ import { authClient } from "@/lib/auth-client"
 import { createPost } from "@/server/post"
 import { nanoid } from "nanoid"
 import { toast } from "sonner"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     imageUrl: z.url("Enter a valid URL"),
@@ -28,6 +28,8 @@ const formSchema = z.object({
 })
 
 export default function CreateBlogPage() {
+
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -64,7 +66,7 @@ export default function CreateBlogPage() {
 
             if(response.success){
                 toast.success(response.message)
-                redirect("/explore")
+                router.push("/explore")
             }else{
                 toast.error(response.message)
             }
