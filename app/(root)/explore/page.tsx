@@ -22,7 +22,7 @@ export default async function ExplorePage() {
         {/* Blogs Grid */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {posts?.map((post) => (
-            <PostCard key={post.post.id} title={post.post.title} content={post.post.content} imageUrl={post.post.imageUrl} authorName={post.user?.name ?? "Unknown"} />
+            <PostCard key={post.post.id} title={post.post.title} content={post.post.content} imageUrl={post.post.imageUrl} authorName={post.user?.name ?? "Unknown"} slug={post.post.slug} />
           ))}
 
         </div>

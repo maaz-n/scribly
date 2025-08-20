@@ -35,6 +35,16 @@ export const getPosts = async () => {
     }
 }
 
+export const getPostWithAuthorBySlug = async (slug: string) => {
+    try {
+        const requiredPost = await db.select().from(post).leftJoin(user, eq(post.authorId, user.id)).where(eq(post.slug, slug))
+
+        return requiredPost[0]
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 export const getAuthorName = async (authorId: string) => {
     const author =  await db.select().from(user).where(eq(user.id, authorId))
     const authorName = author[0].name

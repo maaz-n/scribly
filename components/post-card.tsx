@@ -2,17 +2,21 @@
 import Image from 'next/image'
 import React from 'react'
 import {motion} from 'framer-motion'
+import Link from 'next/link'
 
 interface PostCardProps {
     title: string,
     content: string,
     imageUrl: string,
-    authorName: string
+    authorName: string,
+    slug: string
 }
 
-const PostCard = ({title, content, imageUrl, authorName}: PostCardProps) => {
+const PostCard = ({title, content, imageUrl, authorName, slug}: PostCardProps) => {
     
   return (
+    <Link href={`/post/${slug}`} target='_blank'>
+    
     <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -43,6 +47,7 @@ const PostCard = ({title, content, imageUrl, authorName}: PostCardProps) => {
                 </p>
               </div>
     </motion.div>
+    </Link>
   )
 }
 
