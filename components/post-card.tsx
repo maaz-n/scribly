@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import {motion} from 'framer-motion'
 import Link from 'next/link'
+import DOMPurify from "dompurify"
 
 interface PostCardProps {
     title: string,
@@ -38,9 +39,8 @@ const PostCard = ({title, content, imageUrl, authorName, slug}: PostCardProps) =
                   <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {title}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3">
-                    {content}
-                  </p>
+                  <div className='text-gray-600 dark:text-gray-300 line-clamp-3' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
+
                 </div>
                 <p className="mt-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                   By {authorName}

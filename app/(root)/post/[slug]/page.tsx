@@ -5,6 +5,7 @@ import { getPostWithAuthorBySlug } from '@/server/post'
 import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
+import DOMPurify from "dompurify"
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -65,15 +66,14 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                 {/* Options (only shows if you are the author) */}
                 {isAuthor && (
                     <div className='flex justify-end items-center gap-5 mb-3'>
-                        <EditButton slug={post.post.slug}/>
-                        <DeleteButton postId={post.post.id}/>
+                        <EditButton slug={post.post.slug} />
+                        <DeleteButton postId={post.post.id} />
                     </div>
                 )}
 
                 {/* Content */}
-                <div className="prose dark:prose-invert max-w-none leading-relaxed">
-                    {post.post.content}
-                </div>
+                <div className='prose dark:prose-invert max-w-none leading-relaxed' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.post.content) }} />
+
             </div>
         </article>
     )

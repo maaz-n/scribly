@@ -10,9 +10,7 @@ import CreatePostButton from "./create-post-button"
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Features", href: "#features" },
-  { name: "How It Works", href: "#how-it-works" },
-  { name: "FAQs", href: "#faqs" },
+  { name: "Explore", href: "/explore"}
 ]
 
 interface NavbarProps {

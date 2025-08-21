@@ -19,6 +19,7 @@ import { createPost } from "@/server/post"
 import { nanoid } from "nanoid"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import RichTextEditor from "@/components/rich-text-editor"
 
 const formSchema = z.object({
     imageUrl: z.url("Enter a valid URL"),
@@ -84,7 +85,7 @@ export default function CreateBlogPage() {
 
     return (
         <section className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-fit mx-auto">
                 {/* Heading */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -105,7 +106,7 @@ export default function CreateBlogPage() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="w-full max-w-2xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8"
+                    className="w-full max-w-fit mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8"
                 >
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -160,7 +161,9 @@ export default function CreateBlogPage() {
                                     <FormItem>
                                         <FormLabel>Content</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Enter the content of your blog..." {...field} />
+                                            <RichTextEditor
+                                            value={field.value}
+                                            onChange={field.onChange}/>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
