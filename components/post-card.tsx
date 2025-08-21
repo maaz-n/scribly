@@ -15,7 +15,7 @@ interface PostCardProps {
 const PostCard = ({title, content, imageUrl, authorName, slug}: PostCardProps) => {
     
   return (
-    <Link href={`/post/${slug}`} target='_blank'>
+    <Link href={`/post/${slug}`}>
     
     <motion.div
               initial={{ opacity: 0, y: 20 }}

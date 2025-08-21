@@ -5,17 +5,6 @@ import { getPostWithAuthorBySlug } from '@/server/post'
 import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -76,7 +65,7 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                 {/* Options (only shows if you are the author) */}
                 {isAuthor && (
                     <div className='flex justify-end items-center gap-5 mb-3'>
-                        <EditButton/>
+                        <EditButton slug={post.post.slug}/>
                         <DeleteButton postId={post.post.id}/>
                     </div>
                 )}
