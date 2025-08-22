@@ -7,10 +7,11 @@ import { Menu, X } from "lucide-react"
 import { ModeSwitcher } from "./mode-switcher"
 import LogoutButton from "./logout-button"
 import CreatePostButton from "./create-post-button"
+import LoginButton from "./login-button"
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Explore", href: "/explore"}
+  { name: "Explore", href: "/explore" }
 ]
 
 interface NavbarProps {
@@ -59,10 +60,12 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
             </Link>
           ))}
           <ModeSwitcher />
-          {isAuthenticated && <div className="flex gap-3 w-fit">
+          {isAuthenticated ? (<div className="flex gap-3 w-fit">
             <CreatePostButton />
             <LogoutButton />
-          </div>}
+          </div>) : (
+            <LoginButton />
+          )}
         </div>
 
         {/* Mobile Menu Button */}
