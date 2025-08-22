@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, primaryKey, unique } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -68,23 +68,31 @@ export const post = pgTable("post", {
   content: text("content").notNull(),
   slug: text("slug").notNull(),
   imageUrl: text("imageUrl").notNull(),
-  authorId: text("authorId").notNull().references(() => user.id, {onDelete: "cascade"}),
+  authorId: text("authorId").notNull().references(() => user.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").$defaultFn(() => new Date()),
   updatedAt: timestamp("updated_at").$defaultFn(() => new Date()),
 })
 
+export const postLikes = pgTable("post_likes", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  postId: text("postId").notNull().references(() => post.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull().references(() => user.id, { onDelete: "cascade" }),
+}, (table) => [
+  unique("post_user_unique").on(table.userId, table.postId)
+])
+
 export type CreatePost = typeof post.$inferInsert;
 export type Post = typeof post.$inferSelect
 
-export const userRelations = relations(user, ({many}) => ({
+export const userRelations = relations(user, ({ many }) => ({
   posts: many(post)
 }))
 
-export const postRelations = relations(post, ({one}) => ({
+export const postRelations = relations(post, ({ one }) => ({
   author: one(user, {
     fields: [post.authorId],
     references: [user.id]
   })
 }))
 
-export const schema = { user, session, account, verification, post }
+export const schema = { user, session, account, verification, post, postLikes }

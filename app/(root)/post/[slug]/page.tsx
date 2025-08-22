@@ -1,10 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import { auth } from '@/lib/auth'
-import { getPostWithAuthorBySlug } from '@/server/post'
+import { getPostLikes, getPostWithAuthorBySlug } from '@/server/post'
 import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
+import LikeButton from '@/components/like-button'
+import { getCurrentUser } from '@/server/auth'
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -33,6 +35,12 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
 
     }
     const isAuthor = await checkAuthor();
+    const likes = await getPostLikes(post.post.id)
+    console.log(likes)
+    const currentUser = await getCurrentUser()
+
+    const likeState = likes?.some((like) => like.userId == currentUser?.id)
+    
     return (
         <article className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
             <div className="max-w-4xl mx-auto">
@@ -72,6 +80,12 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
 
                 {/* Content */}
                 <div className='prose dark:prose-invert max-w-none leading-relaxed' dangerouslySetInnerHTML={{ __html: post.post.content }} />
+
+                {/* Like & Comment */}
+                <div className="flex items-center gap-6 mt-10 border-t border-gray-300 dark:border-gray-700 pt-6">
+                    <LikeButton likesCount={likes?.length!} likeState={likeState!} postId={post.post.id} userId={currentUser?.id!}/>
+                    
+                </div>
 
             </div>
         </article>

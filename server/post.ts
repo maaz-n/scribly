@@ -1,8 +1,8 @@
 "use server"
 
 import { db } from "@/db/db"
-import { CreatePost, Post, post, user } from "@/db/schema"
-import { eq } from "drizzle-orm"
+import { CreatePost, Post, post, postLikes, user } from "@/db/schema"
+import { and, eq } from "drizzle-orm"
 
 
 
@@ -87,5 +87,30 @@ export const deletePost = async (id: string) => {
     } catch (error) {
         const e = error as Error
         return { success: false, message: e.message }
+    }
+}
+
+export const getPostLikes = async (postId: string) => {
+    try {
+        const likes = await db.select().from(postLikes).where(eq(postLikes.postId, postId))
+        return likes
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const likePost = async (postId: string, userId: string) => {
+    try {
+        await db.insert(postLikes).values({postId, userId})
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const unlikePost = async (postId: string, userId: string) => {
+    try {
+        await db.delete(postLikes).where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
+    } catch (error) {
+        console.error(error)
     }
 }
