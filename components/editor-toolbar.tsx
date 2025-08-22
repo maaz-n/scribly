@@ -26,118 +26,130 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
   if (!editor) return null
 
   return (
-    <div className="flex flex-wrap justify-center min-h-12 items-center gap-2 border-b p-2 bg-muted/30 rounded-t-md">
+    <div className="flex flex-wrap justify-center  lg:h-12 items-center gap-2 border-b p-2 bg-muted/30 rounded-t-md">
       {/* Text formatting */}
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("bold")}
-        onPressedChange={() => editor.chain().focus().toggleBold().run()}
-      >
-        <Bold size={16} />
-      </Toggle>
+      <div className="flex items-center gap-2">
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("italic")}
-        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
-      >
-        <Italic size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("bold")}
+          onPressedChange={() => editor.chain().focus().toggleBold().run()}
+        >
+          <Bold size={16} />
+        </Toggle>
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("underline")}
-        onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
-      >
-        <Underline size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("italic")}
+          onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+        >
+          <Italic size={16} />
+        </Toggle>
+
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("underline")}
+          onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
+        >
+          <Underline size={16} />
+        </Toggle>
+      </div>
 
       <Separator className="md:hidden" />
-      <Separator orientation="vertical" className="hidden md:block mx-10" />
+      <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
       {/* Headings */}
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("heading", { level: 1 })}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 1 }).run()
-        }
-      >
-        <Heading1 size={16} />
-      </Toggle>
+      <div className="flex items-center gap-2">
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("heading", { level: 2 })}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
-        }
-      >
-        <Heading2 size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("heading", { level: 1 })}
+          onPressedChange={() =>
+            editor.chain().focus().toggleHeading({ level: 1 }).run()
+          }
+        >
+          <Heading1 size={16} />
+        </Toggle>
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("heading", { level: 3 })}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 3 }).run()
-        }
-      >
-        <Heading3 size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("heading", { level: 2 })}
+          onPressedChange={() =>
+            editor.chain().focus().toggleHeading({ level: 2 }).run()
+          }
+        >
+          <Heading2 size={16} />
+        </Toggle>
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("heading", { level: 4 })}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 4 }).run()
-        }
-      >
-        <Heading4 size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("heading", { level: 3 })}
+          onPressedChange={() =>
+            editor.chain().focus().toggleHeading({ level: 3 }).run()
+          }
+        >
+          <Heading3 size={16} />
+        </Toggle>
+
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("heading", { level: 4 })}
+          onPressedChange={() =>
+            editor.chain().focus().toggleHeading({ level: 4 }).run()
+          }
+        >
+          <Heading4 size={16} />
+        </Toggle>
+      </div>
 
       <Separator className="md:hidden" />
-      <Separator orientation="vertical" className="hidden md:block mx-10" />
+      <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
 
       {/* Lists */}
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("bulletList")}
-        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
-      >
-        <List size={16} />
-      </Toggle>
+      <div className="flex items-center gap-2">
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("orderedList")}
-        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
-      >
-        <ListOrdered size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("bulletList")}
+          onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+        >
+          <List size={16} />
+        </Toggle>
+
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("orderedList")}
+          onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
+        >
+          <ListOrdered size={16} />
+        </Toggle>
+      </div>
       <Separator className="md:hidden" />
-      <Separator orientation="vertical" className="hidden md:block mx-10" />
+      <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
 
       {/* Quote + Code */}
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("blockquote")}
-        onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
-      >
-        <Quote size={16} />
-      </Toggle>
+      <div className="flex items-center gap-2">
 
-      <Toggle
-        size="sm"
-        pressed={editor.isActive("codeBlock")}
-        onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
-      >
-        <Code size={16} />
-      </Toggle>
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("blockquote")}
+          onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
+        >
+          <Quote size={16} />
+        </Toggle>
+
+        <Toggle
+          size="sm"
+          pressed={editor.isActive("codeBlock")}
+          onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
+        >
+          <Code size={16} />
+        </Toggle>
+      </div>
       <Separator className="md:hidden" />
-      <Separator orientation="vertical" className="hidden md:block mx-10" />
+      <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
 
       {/* Alignment group */}
