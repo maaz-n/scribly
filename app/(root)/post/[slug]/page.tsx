@@ -5,7 +5,6 @@ import { getPostWithAuthorBySlug } from '@/server/post'
 import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
-import DOMPurify from "dompurify"
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -72,7 +71,7 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                 )}
 
                 {/* Content */}
-                <div className='prose dark:prose-invert max-w-none leading-relaxed' dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.post.content) }} />
+                <div className='prose dark:prose-invert max-w-none leading-relaxed' dangerouslySetInnerHTML={{ __html: post.post.content }} />
 
             </div>
         </article>
