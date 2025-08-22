@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { Heart } from 'lucide-react'
 import { likePost, unlikePost } from '@/server/post'
+import { redirect } from 'next/navigation'
+import { getCurrentUser } from '@/server/auth'
 
 interface LikeButtonProps {
     likesCount: number,
@@ -17,8 +19,11 @@ const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) 
     const [isLiked, setIsLiked] = useState(likeState)
     const [likesLocal, setLikesLocal] = useState(likesCount)
 
-
-    const handleLikes = async () => {
+    const handleLike = async () => {
+        const authenticated = await getCurrentUser()
+        if(!authenticated){
+            redirect("/login")
+        }
         if (isLiked) {
             await unlikePost(postId, userId)
             setLikesLocal(likesLocal => likesLocal - 1)
@@ -32,7 +37,7 @@ const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) 
     }
 
     return (
-        <Button variant={"ghost"} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors" onClick={handleLikes}>
+        <Button variant={"ghost"} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors" onClick={handleLike}>
             <Heart className="w-5 h-5" fill={isLiked ? "red" : "transparent"} strokeWidth={isLiked ? "0" : "2"}/>
             <span>{likesLocal}</span>
         </Button>

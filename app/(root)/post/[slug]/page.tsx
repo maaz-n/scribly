@@ -40,7 +40,7 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     const currentUser = await getCurrentUser()
 
     const likeState = likes?.some((like) => like.userId == currentUser?.id)
-    
+
     return (
         <article className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
             <div className="max-w-4xl mx-auto">
@@ -83,11 +83,14 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
 
                 {/* Like & Comment */}
                 <div className="flex items-center gap-6 mt-10 border-t border-gray-300 dark:border-gray-700 pt-6">
-                    <LikeButton likesCount={likes?.length!} likeState={likeState!} postId={post.post.id} userId={currentUser?.id!}/>
-                    
+                    <LikeButton likesCount={likes?.length!} likeState={likeState!} postId={post.post.id} userId={currentUser?.id!} />
+
                 </div>
 
+
             </div>
+
+
         </article>
     )
 }
