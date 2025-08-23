@@ -1,9 +1,12 @@
 import PostCard from "@/components/post-card"
+import PostsList from "@/components/posts-list"
+import SearchBar from "@/components/search-bar"
 import { getPosts } from "@/server/post"
 
 export default async function ExplorePage() {
 
   const posts = await getPosts()
+  
 
   return (
     <section className="min-h-screen pt-50 lg:pt-60 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
@@ -19,13 +22,7 @@ export default async function ExplorePage() {
           </p>
         </div>
 
-        {/* Blogs Grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {posts?.map((post) => (
-            <PostCard key={post.post.id} title={post.post.title} content={post.post.content} imageUrl={post.post.imageUrl} authorName={post.user?.name ?? "Unknown"} slug={post.post.slug} />
-          ))}
-
-        </div>
+          <PostsList posts={posts}/>
       </div>
     </section>
   )

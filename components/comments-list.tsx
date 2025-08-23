@@ -6,8 +6,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import { Button } from './ui/button'
-import { Trash2 } from 'lucide-react'
 import { getCurrentUser } from '@/server/auth'
 import CommentDeleteButton from './comment-delete.button'
 
