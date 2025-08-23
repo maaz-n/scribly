@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { addComment } from '@/server/post'
 import { getCurrentUser } from '@/server/auth'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
@@ -27,6 +27,8 @@ interface AddCommentProps {
 }
 
 const AddComment = ({ postId }: AddCommentProps) => {
+
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -46,6 +48,8 @@ const AddComment = ({ postId }: AddCommentProps) => {
             const response = await addComment({ userId: id, postId, content: comment })
             if(response.success) {
                 toast.success(response.message)
+                router.refresh()
+                form.reset()
             }else{
                 toast.error(response.message)
             }
