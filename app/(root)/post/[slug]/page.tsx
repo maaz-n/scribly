@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { auth } from '@/lib/auth'
-import { getPostLikes, getPostWithAuthorBySlug } from '@/server/post'
+import { getPostCommentsWithAuthors, getPostLikes, getPostWithAuthorBySlug } from '@/server/post'
 import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
@@ -9,6 +9,7 @@ import LikeButton from '@/components/like-button'
 import { getCurrentUser } from '@/server/auth'
 import CommentButton from '@/components/comment-button'
 import AddComment from '@/components/add-comment'
+import CommentsList from '@/components/comments-list'
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -42,6 +43,8 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     const currentUser = await getCurrentUser()
 
     const likeState = likes?.some((like) => like.userId == currentUser?.id)
+
+    const postCommentsWithAuthor = await getPostCommentsWithAuthors(post.post.id)
 
     return (
         <article className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
@@ -89,9 +92,10 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                     <CommentButton/>
                 </div>
                 
-                <div className='mt-8'>
+                <div className='mt-8 space-y-6'>
 
                 <AddComment postId={post.post.id}/>
+                <CommentsList commentsWithAuthors={postCommentsWithAuthor!}/>
                 </div>
 
             </div>

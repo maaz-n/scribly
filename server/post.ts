@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/db/db"
-import { AddComment, comments, CreatePost, Post, post, postLikes, user } from "@/db/schema"
+import { AddComment, comments, CreatePost, post, postLikes, user } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 
 
@@ -122,5 +122,14 @@ export const addComment = async (data: AddComment) => {
     } catch (error) {
         const e = error as Error
         return {success: false, message: e.message}
+    }
+}
+
+export const getPostCommentsWithAuthors = async (postId: string) => {
+    try {
+        const postCommentsWithAuthor = await db.select().from(comments).leftJoin(user, eq(comments.userId, user.id)).where(eq(comments.postId, postId))
+        return postCommentsWithAuthor
+    } catch (error) {
+        console.error(error)
     }
 }

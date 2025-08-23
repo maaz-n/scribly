@@ -89,8 +89,10 @@ export const comments = pgTable("comments", {
   createdAt: timestamp("created_at").$defaultFn(() => new Date()),
 })
 
-export type CreatePost = typeof post.$inferInsert;
+export type User = typeof user.$inferSelect
 export type Post = typeof post.$inferSelect
+export type CreatePost = typeof post.$inferInsert;
+export type Comment = typeof comments.$inferSelect
 export type AddComment = typeof comments.$inferInsert
 
 export const userRelations = relations(user, ({ many }) => ({
