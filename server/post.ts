@@ -128,8 +128,18 @@ export const addComment = async (data: AddComment) => {
 export const getPostCommentsWithAuthors = async (postId: string) => {
     try {
         const postCommentsWithAuthor = await db.select().from(comments).leftJoin(user, eq(comments.userId, user.id)).where(eq(comments.postId, postId))
-        return postCommentsWithAuthor
+        return postCommentsWithAuthor.reverse()
     } catch (error) {
+        console.error(error)
+    }
+}
+
+export const deleteComment = async (commentId: string) => {
+    try {
+        await db.delete(comments).where(eq(comments.id, commentId))
+        return {success: true, message: "Comment deleted!"}
+    } catch (error) {
+        return {success: false, message: "Error deleting comment"}
         console.error(error)
     }
 }

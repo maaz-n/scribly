@@ -19,7 +19,7 @@ import { redirect, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 const formSchema = z.object({
-    comment: z.string().min(1).max(50),
+    comment: z.string().min(1, "Please write a comment"),
 })
 
 interface AddCommentProps {
@@ -78,7 +78,7 @@ const AddComment = ({ postId }: AddCommentProps) => {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <Button type="submit" className='w-1/4 mx-auto'>Post a comment</Button>
+                                    <Button type="submit" className='w-1/4 mx-auto'>Post comment</Button>
                                 </Card>
                                 <FormMessage />
                             </FormItem>

@@ -39,7 +39,7 @@ const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) 
     return (
         <Button variant={"ghost"} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-red-500 transition-colors" onClick={handleLike}>
             <Heart className="w-5 h-5" fill={isLiked ? "red" : "transparent"} strokeWidth={isLiked ? "0" : "2"}/>
-            <span>{likesLocal}</span>
+            <span>{likesLocal} {likesLocal === 1 ? "Like" : "Likes"}</span>
         </Button>
     )
 }

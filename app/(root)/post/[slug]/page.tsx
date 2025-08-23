@@ -39,7 +39,6 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     }
     const isAuthor = await checkAuthor();
     const likes = await getPostLikes(post.post.id)
-    console.log(likes)
     const currentUser = await getCurrentUser()
 
     const likeState = likes?.some((like) => like.userId == currentUser?.id)
