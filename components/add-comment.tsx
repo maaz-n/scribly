@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { Card } from './ui/card'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
@@ -17,6 +17,7 @@ import { addComment } from '@/server/post'
 import { getCurrentUser } from '@/server/auth'
 import { redirect, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 const formSchema = z.object({
     comment: z.string().min(1, "Please write a comment"),
@@ -29,6 +30,7 @@ interface AddCommentProps {
 const AddComment = ({ postId }: AddCommentProps) => {
 
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -39,6 +41,7 @@ const AddComment = ({ postId }: AddCommentProps) => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setIsLoading(true)
             const authenticated = await getCurrentUser()
             if (!authenticated) {
                 redirect("/login")
@@ -55,6 +58,8 @@ const AddComment = ({ postId }: AddCommentProps) => {
             }
         } catch (error) {
             console.error(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -78,7 +83,14 @@ const AddComment = ({ postId }: AddCommentProps) => {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <Button type="submit" className='w-1/4 mx-auto'>Post comment</Button>
+                                    <Button type="submit" className='w-1/4 mx-auto' disabled={isLoading}>
+                                        {isLoading ? (
+                                            <div className='flex gap-2 items-center'>
+                                                <Loader2 className='animate-spin'/>
+                                                <span>Posting...</span>
+                                            </div>
+                                        ) : <span>Post comment</span>}
+                                    </Button>
                                 </Card>
                                 <FormMessage />
                             </FormItem>

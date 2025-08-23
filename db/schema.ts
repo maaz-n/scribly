@@ -63,7 +63,7 @@ export const verification = pgTable("verification", {
 
 
 export const post = pgTable("post", {
-  id: text("id").primaryKey(),
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   title: text("title").notNull(),
   content: text("content").notNull(),
   slug: text("slug").notNull(),

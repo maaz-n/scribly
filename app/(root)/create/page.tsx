@@ -13,13 +13,14 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import React from "react"
+import React, { useState } from "react"
 import { authClient } from "@/lib/auth-client"
 import { createPost } from "@/server/post"
 import { nanoid } from "nanoid"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import RichTextEditor from "@/components/rich-text-editor"
+import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
     imageUrl: z.url("Enter a valid URL"),
@@ -31,6 +32,7 @@ const formSchema = z.object({
 export default function CreateBlogPage() {
 
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -54,26 +56,28 @@ export default function CreateBlogPage() {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
+            setIsLoading(true)
             const authorId = await getAuthorId()
             if (!authorId) {
                 return null
             }
-            const postId = nanoid(20)
             const response = await createPost({
-                id: postId,
                 authorId,
                 ...values,
             })
 
             if(response.success){
                 toast.success(response.message)
+                form.reset()
                 router.push("/explore")
             }else{
                 toast.error(response.message)
             }
 
         } catch (error) {
-
+            console.error(error)
+        } finally {
+            setIsLoading(false)
         }
 
     }
@@ -176,8 +180,16 @@ export default function CreateBlogPage() {
                                 type="submit"
                                 className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 
             text-white font-semibold shadow-md transition-colors"
+            disabled={isLoading}
                             >
-                                Publish Blog
+                                {isLoading ? (
+                                    <div className="flex items-center gap-2 justify-center">
+                                        <Loader2 className="animate-spin"/>
+                                        <span>Publishing...</span>
+                                    </div>
+                                ) : (
+                                    <span>Publish blog</span>
+                                ) }
                             </motion.button>
                         </form>
                     </Form>

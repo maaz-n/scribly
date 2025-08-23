@@ -1,8 +1,8 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from './ui/button'
-import { Trash2 } from 'lucide-react'
+import { Loader2, Trash2 } from 'lucide-react'
 import { deleteComment } from '@/server/post'
 import { toast } from 'sonner'
 import {
@@ -21,9 +21,11 @@ import { useRouter } from 'next/navigation'
 export default function CommentDeleteButton({ commentId }: { commentId: string }) {
 
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleDeleteComment = async () => {
         try {
+            setIsLoading(true)
             const response = await deleteComment(commentId)
             if (response.success) {
                 toast.success(response.message)
@@ -33,6 +35,8 @@ export default function CommentDeleteButton({ commentId }: { commentId: string }
             }
         } catch (error) {
             console.error(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -40,8 +44,8 @@ export default function CommentDeleteButton({ commentId }: { commentId: string }
 
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant={"destructive"}>
-                    <Trash2 />
+                <Button variant={"destructive"} disabled={isLoading}>
+                    {isLoading ? <Loader2 className='animate-spin'/> : <Trash2/> }
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>

@@ -1,28 +1,19 @@
 "use server"
 
 import { db } from "@/db/db"
-import { AddComment, comments, CreatePost, post, postLikes, user } from "@/db/schema"
+import { AddComment, comments, CreatePost, Post, post, postLikes, user } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 
 
 
 export const createPost = async (data: CreatePost) => {
     try {
-        const { id, imageUrl, title, slug, content, authorId } = data
-        await db.insert(post).values({
-            id,
-            title,
-            content,
-            slug,
-            imageUrl,
-            authorId
-        })
-
-        return { success: true, message: "Post Published!" }
+        await db.insert(post).values(data)
+        return { success: true, message: "Post published!" }
 
     } catch (error) {
-        const e = error as Error
-        return { success: false, message: e.message }
+        console.error(error)
+        return { success: false, message: "There was an error creating the post" }
     }
 }
 
@@ -61,11 +52,10 @@ export const getAuthorName = async (authorId: string) => {
     return authorName
 }
 
-export const updatePost = async (postToEdit: CreatePost) => {
+export const updatePost = async (postToEdit: Post) => {
     try {
-        const {id, title, content, slug, imageUrl} = postToEdit
+        const { title, content, slug, imageUrl} = postToEdit
         await db.update(post).set({
-            id,
             title,
             content,
             slug,
@@ -75,8 +65,8 @@ export const updatePost = async (postToEdit: CreatePost) => {
         .where(eq(post.id, postToEdit.id))
         return { success: true, message: "Post updated" }
     } catch (error) {
-        const e = error as Error
-        return {success: false, message: e.message}
+        console.error(error)
+        return {success: false, message: "Error updating the post"}
     }
 }
 
@@ -85,8 +75,8 @@ export const deletePost = async (id: string) => {
         await db.delete(post).where(eq(post.id, id))
         return { success: true, message: "Post deleted!" }
     } catch (error) {
-        const e = error as Error
-        return { success: false, message: e.message }
+        console.error(error)
+        return { success: false, message: "Error deleting the post" }
     }
 }
 
@@ -118,10 +108,9 @@ export const unlikePost = async (postId: string, userId: string) => {
 export const addComment = async (data: AddComment) => {
     try {
         await db.insert(comments).values(data)
-        return {success: true, message: "Comment Added"}
+        return {success: true, message: "Comment added!"}
     } catch (error) {
-        const e = error as Error
-        return {success: false, message: e.message}
+        return {success: false, message: "There was an error adding the comment"}
     }
 }
 
@@ -139,7 +128,7 @@ export const deleteComment = async (commentId: string) => {
         await db.delete(comments).where(eq(comments.id, commentId))
         return {success: true, message: "Comment deleted!"}
     } catch (error) {
-        return {success: false, message: "Error deleting comment"}
         console.error(error)
+        return {success: false, message: "There was an error deleting the comment"}
     }
 }
