@@ -81,8 +81,17 @@ export const postLikes = pgTable("post_likes", {
   unique("post_user_unique").on(table.userId, table.postId)
 ])
 
+export const comments = pgTable("comments", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  postId: text("postId").notNull().references(() => post.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull().references(() => user.id, { onDelete: "cascade" }),
+  content: text("comment").notNull(),
+  createdAt: timestamp("created_at").$defaultFn(() => new Date()),
+})
+
 export type CreatePost = typeof post.$inferInsert;
 export type Post = typeof post.$inferSelect
+export type AddComment = typeof comments.$inferInsert
 
 export const userRelations = relations(user, ({ many }) => ({
   posts: many(post)
@@ -95,4 +104,4 @@ export const postRelations = relations(post, ({ one }) => ({
   })
 }))
 
-export const schema = { user, session, account, verification, post, postLikes }
+export const schema = { user, session, account, verification, post, postLikes, comments }

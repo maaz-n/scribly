@@ -7,6 +7,8 @@ import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
 import LikeButton from '@/components/like-button'
 import { getCurrentUser } from '@/server/auth'
+import CommentButton from '@/components/comment-button'
+import AddComment from '@/components/add-comment'
 
 
 const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -84,9 +86,13 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
                 {/* Like & Comment */}
                 <div className="flex items-center gap-6 mt-10 border-t border-gray-300 dark:border-gray-700 pt-6">
                     <LikeButton likesCount={likes?.length!} likeState={likeState!} postId={post.post.id} userId={currentUser?.id!} />
-
+                    <CommentButton/>
                 </div>
+                
+                <div className='mt-8'>
 
+                <AddComment postId={post.post.id}/>
+                </div>
 
             </div>
 

@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/db/db"
-import { CreatePost, Post, post, postLikes, user } from "@/db/schema"
+import { AddComment, comments, CreatePost, Post, post, postLikes, user } from "@/db/schema"
 import { and, eq } from "drizzle-orm"
 
 
@@ -112,5 +112,15 @@ export const unlikePost = async (postId: string, userId: string) => {
         await db.delete(postLikes).where(and(eq(postLikes.postId, postId), eq(postLikes.userId, userId)))
     } catch (error) {
         console.error(error)
+    }
+}
+
+export const addComment = async (data: AddComment) => {
+    try {
+        await db.insert(comments).values(data)
+        return {success: true, message: "Comment Added"}
+    } catch (error) {
+        const e = error as Error
+        return {success: false, message: e.message}
     }
 }
