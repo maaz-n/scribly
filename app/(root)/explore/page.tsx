@@ -1,6 +1,4 @@
-import PostCard from "@/components/post-card"
 import PostsList from "@/components/posts-list"
-import SearchBar from "@/components/search-bar"
 import { getPosts } from "@/server/post"
 
 export default async function ExplorePage() {
