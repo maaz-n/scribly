@@ -24,6 +24,8 @@ import {
 import { signupUser } from "@/server/auth"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
 
 const formSchema = z.object({
@@ -36,6 +38,7 @@ export function SignupForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -146,14 +149,30 @@ export function SignupForm({
               <Button
                 type="submit"
                 className="w-full rounded-xl py-5 font-medium bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all shadow-lg"
+                disabled={isLoading}
               >
-                Sign up
+                {isLoading ? (
+                  <div className="flex gap-2 items-center">
+                    <Loader2 className="animate-spin"/>
+                    <span>Signing up...</span>
+                  </div>
+                ) : (
+                  <span>Sign up</span>
+                ) }
               </Button>
-              <Button
+             <Button
                 variant="outline"
                 className="w-full rounded-xl py-5 font-medium hover:bg-muted/60 transition-all"
               >
-                Sign up with Google
+                <svg
+                  className="mr-2 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 488 512"
+                  fill="currentColor"
+                >
+                  <path d="M488 261.8C488 403.3 391.1 512 248 512 110.8 512 0 401.2 0 264S110.8 16 248 16c67.1 0 123.5 24.6 167.5 64.9l-67.9 65.1c-18.7-17.9-52.2-38.9-99.6-38.9-85.3 0-154.5 70-154.5 157s69.2 157 154.5 157c98.6 0 135.4-70.7 141.2-107.5H248V261.8h240z"/>
+                </svg>
+                Continue with Google
               </Button>
             </div>
           </div>

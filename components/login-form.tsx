@@ -24,6 +24,8 @@ import {
 import { loginUser } from "@/server/auth"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Loader2 } from "lucide-react"
 
 
 const formSchema = z.object({
@@ -35,6 +37,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,6 +49,7 @@ export function LoginForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
     try {
+      setIsLoading(true)
       const response = await loginUser(values.email, values.password)
       if(response.success){
         toast.success(response.message)
@@ -56,6 +60,8 @@ export function LoginForm({
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
 
   }
@@ -122,8 +128,16 @@ export function LoginForm({
               <Button
                 type="submit"
                 className="w-full rounded-xl py-5 font-medium bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all shadow-lg"
+                disabled={isLoading}
               >
-                Login
+                {isLoading ? (
+                  <div className="flex gap-2 items-center">
+                    <Loader2 className="animate-spin"/>
+                    <span>Logging in...</span>
+                  </div>
+                ) : (
+                  <span>Login</span>
+                ) }
               </Button>
               <Button
                 variant="outline"
