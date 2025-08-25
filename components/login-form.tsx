@@ -26,6 +26,7 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { authClient } from "@/lib/auth-client"
 
 
 const formSchema = z.object({
@@ -44,8 +45,17 @@ export function LoginForm({
     defaultValues: {
       email: "",
       password: ""
-    },
+    },      
+
   })
+
+  async function signInWithGoogle(){
+    await authClient.signIn.social({
+      provider: 'google',
+      callbackURL: "/explore"
+    })
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
     try {
@@ -142,6 +152,8 @@ export function LoginForm({
               <Button
                 variant="outline"
                 className="w-full rounded-xl py-5 font-medium hover:bg-muted/60 transition-all"
+                onClick={signInWithGoogle}
+                type="button"
               >
                 <svg
                   className="mr-2 h-5 w-5"
