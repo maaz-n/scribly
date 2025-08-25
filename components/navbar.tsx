@@ -11,7 +11,7 @@ import LoginButton from "./login-button"
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Explore", href: "/explore" }
+  { name: "Explore", href: "/explore" },
 ]
 
 interface NavbarProps {
@@ -41,10 +41,13 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
           borderRadius: isScrolled ? 16 : 24,
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-md border border-gray-200 dark:border-gray-700 flex items-center justify-between px-6"
+        className="bg-background/80 backdrop-blur-md border shadow-sm flex items-center justify-between px-6"
       >
         {/* Logo */}
-        <Link href="/" className="text-xl md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <Link
+          href="/"
+          className="text-xl md:text-2xl font-bold tracking-tight"
+        >
           MyApp
         </Link>
 
@@ -54,30 +57,30 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
             <Link
               key={link.name}
               href={link.href}
-              className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
               {link.name}
             </Link>
           ))}
           <ModeSwitcher />
-          {isAuthenticated ? (<div className="flex gap-3 w-fit">
-            <CreatePostButton />
-            <LogoutButton />
-          </div>) : (
+          {isAuthenticated ? (
+            <div className="flex gap-3">
+              <CreatePostButton />
+              <LogoutButton />
+            </div>
+          ) : (
             <LoginButton />
           )}
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-4">
-
           <ModeSwitcher />
           <button
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 "
+            className="p-2 rounded-lg hover:bg-accent"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
-
           </button>
         </div>
       </motion.div>
@@ -90,23 +93,26 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mt-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg shadow-md rounded-xl border border-gray-200 dark:border-gray-700"
+            className="md:hidden mt-2 bg-background/90 backdrop-blur-md border shadow-sm rounded-xl"
           >
             <div className="flex flex-col p-4 space-y-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              {isAuthenticated && <div className="flex gap-3 w-fit">
-                <CreatePostButton />
-                <LogoutButton />
-              </div>}
+              {isAuthenticated && (
+                <div className="flex gap-3">
+                  <CreatePostButton />
+                  <LogoutButton />
+                </div>
+              )}
+              {!isAuthenticated && <LoginButton />}
             </div>
           </motion.div>
         )}

@@ -1,108 +1,92 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { motion } from 'framer-motion'
 
-const faqs = [
-  {
-    q: "Is the blogging app free to use?",
-    a: "Yes! You can start writing and publishing for free. We also offer premium features for advanced creators.",
-  },
-  {
-    q: "Do I need coding skills to use it?",
-    a: "Not at all. Our editor is simple and intuitive — just focus on your writing.",
-  },
-  {
-    q: "Can I customize the look of my blog?",
-    a: "Yes, you can personalize your blog with themes, colors, and layouts to match your style.",
-  },
-  {
-    q: "How do I grow my audience?",
-    a: "Share your posts on social media, get featured in our community, and connect with other writers and readers.",
-  },
-]
-
-export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-
-  const toggle = (i: number) => {
-    setOpenIndex(openIndex === i ? null : i)
-  }
+export default function FAQsFour() {
+  const faqItems = [
+    {
+      id: "item-1",
+      question: "How do I create a blog post?",
+      answer:
+        "Simply sign up, go to your dashboard, and click 'New Post'. You can write, format, and publish your content instantly.",
+    },
+    {
+      id: "item-2",
+      question: "Is there a cost to use the platform?",
+      answer:
+        "Our basic plan is completely free. Premium features like advanced analytics and custom domains are available on paid plans.",
+    },
+    {
+      id: "item-3",
+      question: "Can I customize the look of my blog?",
+      answer:
+        "Yes, you can choose from multiple themes, customize colors, and even add your own branding for a unique style.",
+    },
+    {
+      id: "item-4",
+      question: "Do you support collaborations?",
+      answer:
+        "Absolutely. You can invite co-authors, manage roles, and collaborate on drafts seamlessly with real-time updates.",
+    },
+    {
+      id: "item-5",
+      question: "Is my content secure?",
+      answer:
+        "We use industry-standard encryption and regular backups to make sure your content is always safe and accessible.",
+    },
+  ]
 
   return (
-    <section id="faqs" className="w-full py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-950 dark:via-black dark:to-blue-950">
-      <div className="max-w-3xl md:max-w-4xl mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
+    <section className="py-16 md:py-24">
+      <div className="mx-auto max-w-5xl px-4 md:px-6">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white"
+          transition={{ duration: 0.6 }}
+          className="mx-auto max-w-4xl text-center"
         >
-          Frequently Asked Questions
-        </motion.h2>
+          <h2 className="text-balance text-3xl font-bold md:text-4xl lg:text-5xl">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-muted-foreground mt-4 text-balance">
+            Discover quick and comprehensive answers to common questions about our platform, services, and features.
+          </p>
+        </motion.div>
 
-        <div className="mt-10 space-y-3">
-          {faqs.map((item, i) => {
-            const isOpen = openIndex === i
-            const contentId = `faq-panel-${i}`
-            const buttonId = `faq-button-${i}`
-
-            return (
+        {/* FAQ Accordion */}
+        <div className="mx-auto mt-12 max-w-xl">
+          <Accordion
+            type="single"
+            collapsible
+            className="bg-muted dark:bg-muted/50 w-full rounded-2xl p-1"
+          >
+            {faqItems.map((item, i) => (
               <motion.div
-                key={i}
-                layout
-                transition={{ layout: { type: "spring", stiffness: 260, damping: 28 } }}
-                className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/90"
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="group"
               >
-                {/* Question Row */}
-                <motion.button
-                  id={buttonId}
-                  aria-controls={contentId}
-                  aria-expanded={isOpen}
-                  onClick={() => toggle(i)}
-                  className="w-full flex items-center justify-between gap-6 px-5 md:px-6 py-4 md:py-5 text-left"
+                <AccordionItem
+                  value={item.id}
+                  className="data-[state=open]:bg-card dark:data-[state=open]:bg-muted peer rounded-xl border-none px-7 py-1 data-[state=open]:border-none data-[state=open]:shadow-sm"
                 >
-                  <span className="text-base md:text-[1.05rem] font-medium text-gray-900 dark:text-gray-100 leading-6">
-                    {item.q}
-                  </span>
-
-                  <motion.span
-                    initial={false}
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ type: "tween", duration: 0.2 }}
-                    className="shrink-0 inline-flex items-center justify-center rounded-md"
-                  >
-                    <ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                  </motion.span>
-                </motion.button>
-
-                {/* Answer */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={contentId}
-                      role="region"
-                      aria-labelledby={buttonId}
-                      key="content"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-5 md:px-6 pb-5 md:pb-6">
-                        <p className="text-sm md:text-base leading-7 text-gray-700 dark:text-gray-300">
-                          {item.a}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  <AccordionTrigger className="cursor-pointer text-base hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-base">{item.answer}</p>
+                  </AccordionContent>
+                </AccordionItem>
+                <hr className="mx-7 border-dashed group-last:hidden peer-data-[state=open]:opacity-0" />
               </motion.div>
-            )
-          })}
+            ))}
+          </Accordion>
         </div>
       </div>
     </section>
