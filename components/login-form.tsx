@@ -60,72 +60,100 @@ export function LoginForm({
 
   }
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your details below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-3">
+    <div className={cn("flex flex-col gap-6 items-center justify-center min-h-screen", className)} {...props}>
+  <Card className="w-full max-w-md border-none shadow-xl bg-card/80 backdrop-blur-md rounded-2xl">
+    <CardHeader className="space-y-2 text-center">
+      <CardTitle className="text-2xl font-bold tracking-tight text-foreground">
+        Welcome Back 👋
+      </CardTitle>
+      <CardDescription className="text-muted-foreground">
+        Sign in to continue to your account
+      </CardDescription>
+    </CardHeader>
 
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="user@example.com" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="grid gap-3">
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="flex items-center justify-between text-sm">
-                          <FormLabel>Password</FormLabel>
-                          <a href="#">Forgot passowrd?</a>
+    <CardContent>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <div className="flex flex-col gap-5">
+            {/* Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-foreground">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="user@example.com"
+                      {...field}
+                      className="rounded-xl border-input bg-background focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        </div>
-                        <FormControl>
-                          <Input placeholder="********" type="password" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <Button type="submit" className="w-full">
-                    Login
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Login with Google
-                  </Button>
-                </div>
-              </div>
-              <div className="mt-4 text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="/sign-up" className="underline underline-offset-4">
-                  Sign up
-                </a>
-              </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-    </div >
+            {/* Password */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center justify-between text-sm">
+                    <FormLabel className="font-medium text-foreground">Password</FormLabel>
+                    <a href="#" className="text-primary hover:underline">Forgot password?</a>
+                  </div>
+                  <FormControl>
+                    <Input
+                      placeholder="********"
+                      type="password"
+                      {...field}
+                      className="rounded-xl border-input bg-background focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Buttons */}
+            <div className="flex flex-col gap-3">
+              <Button
+                type="submit"
+                className="w-full rounded-xl py-5 font-medium bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all shadow-lg"
+              >
+                Login
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full rounded-xl py-5 font-medium hover:bg-muted/60 transition-all"
+              >
+                <svg
+                  className="mr-2 h-5 w-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 488 512"
+                  fill="currentColor"
+                >
+                  <path d="M488 261.8C488 403.3 391.1 512 248 512 110.8 512 0 401.2 0 264S110.8 16 248 16c67.1 0 123.5 24.6 167.5 64.9l-67.9 65.1c-18.7-17.9-52.2-38.9-99.6-38.9-85.3 0-154.5 70-154.5 157s69.2 157 154.5 157c98.6 0 135.4-70.7 141.2-107.5H248V261.8h240z"/>
+                </svg>
+                Continue with Google
+              </Button>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            Don&apos;t have an account?{" "}
+            <a href="/sign-up" className="font-medium text-primary hover:underline">
+              Sign up
+            </a>
+          </div>
+        </form>
+      </Form>
+    </CardContent>
+  </Card>
+</div>
+
   )
 }
