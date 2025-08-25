@@ -45,60 +45,73 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     const postCommentsWithAuthor = await getPostCommentsWithAuthors(post.post.id)
 
     return (
-        <article className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
-            <div className="max-w-4xl mx-auto">
-                {/* Blog Header Image */}
-                <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg mb-8">
-                    <Image
-                        src={post.post.imageUrl}
-                        alt={post.post.title}
-                        fill
-                        className="object-cover"
-                        priority
-                    />
-                </div>
+        <article className="min-h-screen pt-40 bg-background py-16 px-6">
+  <div className="max-w-4xl mx-auto">
+    
+    {/* Blog Header Image */}
+    <div className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden shadow mb-10">
+      <Image
+        src={post.post.imageUrl}
+        alt={post.post.title}
+        fill
+        className="object-cover"
+        priority
+      />
+    </div>
 
-                {/* Title */}
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                    {post.post.title}
-                </h1>
+    {/* Content Wrapper */}
+    <div className="bg-card text-card-foreground shadow rounded-xl p-8">
+      
+      {/* Title */}
+      <h1 className="text-4xl font-bold mb-4">
+        {post.post.title}
+      </h1>
 
-                {/* Author & Meta */}
-                <div className="flex items-center space-x-3 mb-8">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-400 to-pink-500 flex items-center justify-center text-white font-bold">
-                        {post.user?.name[0] ?? "?"}
-                    </div>
-                    <span className="text-gray-700 dark:text-gray-300">
-                        By <span className="font-semibold">{post.user?.name}</span>
-                    </span>
-                </div>
+      {/* Author & Meta */}
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-bold">
+          {post.user?.name[0] ?? "?"}
+        </div>
+        <div>
+          <p className="text-sm text-muted-foreground">
+            By <span className="font-medium text-foreground">{post.user?.name}</span>
+          </p>
+        </div>
+      </div>
 
-                {/* Options (only shows if you are the author) */}
-                {isAuthor && (
-                    <div className='flex justify-end items-center gap-5 mb-3'>
-                        <EditButton slug={post.post.slug} />
-                        <DeleteButton postId={post.post.id} />
-                    </div>
-                )}
+      {/* Options (only shows if you are the author) */}
+      {isAuthor && (
+        <div className="flex justify-end gap-3 mb-6">
+          <EditButton slug={post.post.slug} />
+          <DeleteButton postId={post.post.id} />
+        </div>
+      )}
 
-                {/* Content */}
-                <div className='prose dark:prose-invert max-w-none leading-relaxed' dangerouslySetInnerHTML={{ __html: post.post.content }} />
+      {/* Content */}
+      <div
+        className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: post.post.content }}
+      />
 
-                {/* Like & Comment */}
-                <div className="flex items-center gap-6 mt-10 border-t border-gray-300 dark:border-gray-700 pt-6">
-                    <LikeButton likesCount={likes?.length!} likeState={likeState!} postId={post.post.id} userId={currentUser?.id!} />
-                </div>
-                
-                <div className='mt-8 space-y-6'>
+      {/* Like & Comment */}
+      <div className="flex items-center gap-6 mt-10 border-t pt-6">
+        <LikeButton
+          likesCount={likes?.length!}
+          likeState={likeState!}
+          postId={post.post.id}
+          userId={currentUser?.id!}
+        />
+      </div>
 
-                <AddComment postId={post.post.id}/>
-                <CommentsList commentsWithAuthors={postCommentsWithAuthor!}/>
-                </div>
+      <div className="mt-8 space-y-6">
+        <AddComment postId={post.post.id} />
+        <CommentsList commentsWithAuthors={postCommentsWithAuthor!} />
+      </div>
+    </div>
+  </div>
+</article>
 
-            </div>
 
-
-        </article>
     )
 }
 

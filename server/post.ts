@@ -52,9 +52,12 @@ export const getAuthorName = async (authorId: string) => {
     return authorName
 }
 
-export const updatePost = async (postToEdit: Post) => {
+export const updatePost = async (postToEdit: CreatePost) => {
     try {
-        const { title, content, slug, imageUrl} = postToEdit
+        const { id, title, content, slug, imageUrl} = postToEdit
+        if(!id){
+            return { success: false, message: "Post not found" }
+        }
         await db.update(post).set({
             title,
             content,
@@ -62,7 +65,7 @@ export const updatePost = async (postToEdit: Post) => {
             imageUrl,
             updatedAt: new Date()
         })
-        .where(eq(post.id, postToEdit.id))
+        .where(eq(post.id, id))
         return { success: true, message: "Post updated" }
     } catch (error) {
         console.error(error)

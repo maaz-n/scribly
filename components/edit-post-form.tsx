@@ -18,6 +18,7 @@ import { updatePost } from '@/server/post'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import RichTextEditor from './rich-text-editor'
+import { Button } from './ui/button'
 
 
 const formSchema = z.object({
@@ -55,14 +56,14 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
 
             const response = await updatePost(
                 {
-                    ...values,
                     id,
+                    ...values,
                     authorId
                 }
             )
             if (response.success) {
                 toast.success(response.message)
-                router.push("/explore")
+                router.push(`/post/${slug}`)
             } else {
                 toast.error(response.message)
             }
@@ -73,7 +74,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
     }
 
     return (
-        <section className="min-h-screen pt-40 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950 py-16 px-6">
+        <section className="min-h-screen pt-40 bg-background py-16 px-6">
             <div className="max-w-fit mx-auto">
                 {/* Heading */}
                 <motion.div
@@ -82,10 +83,10 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-12"
                 >
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="text-4xl font-bold text-foreground">
                         Edit your post
                     </h1>
-                    <p className="mt-3 text-gray-600 dark:text-gray-300">
+                    <p className="mt-3 text-muted-foreground">
                         Modify the details below to edit your post.
                     </p>
                 </motion.div>
@@ -95,7 +96,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="w-full max-w-fit mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8"
+                    className="w-full bg-card text-card-foreground border border-border shadow-lg rounded-2xl p-8"
                 >
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -119,12 +120,16 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                                     <FormItem>
                                         <FormLabel>Title</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Enter the title of your blog..." {...field} onChange={(e) => {
-                                                field.onChange(e.target.value)
-                                                const title = e.target.value
-                                                const slug = slugify(title)
-                                                form.setValue("slug", slug)
-                                            }} />
+                                            <Input
+                                                placeholder="Enter the title of your blog..."
+                                                {...field}
+                                                onChange={(e) => {
+                                                    field.onChange(e.target.value)
+                                                    const title = e.target.value
+                                                    const slug = slugify(title)
+                                                    form.setValue("slug", slug)
+                                                }}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -150,30 +155,25 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
                                     <FormItem>
                                         <FormLabel>Content</FormLabel>
                                         <FormControl>
-                                            <RichTextEditor
-                                                value={field.value}
-                                                onChange={field.onChange} />
+                                            <RichTextEditor value={field.value} onChange={field.onChange} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                            <Button
                                 type="submit"
-                                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 
-            text-white font-semibold shadow-md transition-colors"
+                                className="w-full font-semibold"
                             >
                                 Update Post
-                            </motion.button>
+                            </Button>
                         </form>
                     </Form>
                 </motion.div>
-
             </div>
         </section>
+
     )
 }
 

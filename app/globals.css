@@ -186,29 +186,27 @@ html {
 }
 
 .dark .prose blockquote {
-  border-left-color: theme('colors.gray.600'); /* darker border */
+  border-left-color: theme('colors.neutral.600'); /* darker border */
   color: theme('colors.gray.200');
-  background-color: theme('colors.gray.800'); /* dark bg */
+  background-color: theme('colors.neutral.800'); /* dark bg */
 }
 
 /* Inline code */
 .prose code {
-  background-color: theme('colors.gray.100');
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.875rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  color: theme('colors.pink.600');
+  color: theme('colors.neutral.900')
 }
 
 .dark .prose code {
-  background-color: theme('colors.gray.700');
-  color: theme('colors.pink.400');
+  color: white
 }
 
 /* Code block */
 .prose pre {
-  background-color: theme('colors.gray.300');
+  background-color: theme('colors.neutral.300');
   color: theme('colors.gray.100');
   padding: 1rem;
   border-radius: 0.5rem;
@@ -219,12 +217,12 @@ html {
 }
 
 .dark .prose pre {
-    background-color: theme('colors.gray.800');
+    background-color: theme('colors.neutral.800');
 }
 
 .dark .prose pre {
-  background-color: theme('colors.gray.900');
-  color: theme('colors.gray.50');
+  background-color: theme('colors.neutral.800');
+  color: theme('colors.neutral.50');
 }
 
 
