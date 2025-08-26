@@ -7,7 +7,7 @@ export default async function ExplorePage() {
   return (
     <section className="min-h-screen py-16 px-6 pt-50 lg:pt-60 bg-background">
       <div className="max-w-7xl mx-auto">
-        {/* Page Heading */}
+        
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground">
             Explore <span className="text-primary">Blogs</span>

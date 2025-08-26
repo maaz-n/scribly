@@ -41,7 +41,6 @@ export default function FAQsFour() {
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-5xl px-4 md:px-6">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +56,6 @@ export default function FAQsFour() {
           </p>
         </motion.div>
 
-        {/* FAQ Accordion */}
         <div className="mx-auto mt-12 max-w-xl">
           <Accordion
             type="single"

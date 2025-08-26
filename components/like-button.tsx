@@ -8,16 +8,16 @@ import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/server/auth'
 
 interface LikeButtonProps {
-    likesCount: number,
-    likeState: boolean,
+    likesCount?: number,
+    likeState?: boolean,
     postId: string,
     userId?: string
 }
 
 const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) => {
 
-    const [isLiked, setIsLiked] = useState(likeState)
-    const [likesLocal, setLikesLocal] = useState(likesCount)
+    const [isLiked, setIsLiked] = useState(likeState ?? false)
+    const [likesLocal, setLikesLocal] = useState(likesCount ?? 0)
 
     const handleLike = async () => {
         const authenticated = await getCurrentUser()

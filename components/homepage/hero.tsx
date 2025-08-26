@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { buttonVariants } from "@/components/ui/button" // <- shadcn button styles
+import { buttonVariants } from "@/components/ui/button"
 
 export default function Hero() {
   return (
     <section className="relative pt-50 lg:pt-80 w-full py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
         
-        {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -20,7 +19,6 @@ export default function Hero() {
           <br /> Inspire the World
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,7 +29,6 @@ export default function Hero() {
           Whether you&apos;re a casual writer or a professional, your voice matters.
         </motion.p>
 
-        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

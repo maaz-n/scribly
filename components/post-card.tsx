@@ -31,7 +31,6 @@ const PostCard = ({ title, content, imageUrl, authorName, slug }: PostCardProps)
           />
         </div>
 
-        {/* Content */}
         <div className="p-5 flex flex-col justify-between h-[250px]">
           <div>
             <h2 className="text-lg font-semibold text-foreground mb-2">

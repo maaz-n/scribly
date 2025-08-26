@@ -30,7 +30,6 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="w-full py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
-        {/* Section Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -51,10 +50,9 @@ export default function HowItWorks() {
           Getting started is easy. Just follow these four simple steps to share your voice with the world.
         </motion.p>
 
-        {/* Timeline */}
         <div className="mt-16 relative">
           {/* Line */}
-          <div className="hidden md:block absolute top-6 left-0 right-0 h-px bg-border" /> {/* horizontal for md+ */}
+          <div className="hidden md:block absolute top-6 left-0 right-0 h-px bg-border" />
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
             {steps.map((step, i) => (
@@ -66,12 +64,10 @@ export default function HowItWorks() {
                 transition={{ duration: 0.5, delay: i * 0.15 }}
                 className="flex flex-col items-center text-center md:items-center md:text-center relative"
               >
-                {/* Icon circle */}
                 <div className="flex items-center justify-center w-12 h-12 rounded-full bg-muted border mb-4 md:mb-6 z-10">
                   {step.icon}
                 </div>
 
-                {/* Text */}
                 <h3 className="text-lg font-semibold text-foreground">
                   {step.title}
                 </h3>

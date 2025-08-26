@@ -31,7 +31,6 @@ export default function Features() {
   return (
     <section id="features" className="w-full py-20 bg-background">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +48,6 @@ export default function Features() {
           </p>
         </motion.div>
 
-        {/* Features Grid */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
             <motion.div

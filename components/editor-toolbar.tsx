@@ -27,7 +27,6 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
 
   return (
     <div className="flex flex-wrap justify-center  lg:h-12 items-center gap-2 border-b p-2 bg-muted/30 rounded-t-md">
-      {/* Text formatting */}
       <div className="flex items-center gap-2">
 
         <Toggle
@@ -58,7 +57,6 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
       <Separator className="md:hidden" />
       <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
-      {/* Headings */}
       <div className="flex items-center gap-2">
 
         <Toggle
@@ -106,7 +104,6 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
       <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
 
-      {/* Lists */}
       <div className="flex items-center gap-2">
 
         <Toggle
@@ -129,7 +126,6 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
       <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
 
-      {/* Quote + Code */}
       <div className="flex items-center gap-2">
 
         <Toggle
@@ -151,8 +147,6 @@ export function EditorToolbar({ editor }: { editor: Editor | null }) {
       <Separator className="md:hidden" />
       <Separator orientation="vertical" className="hidden md:block mx-10 h-6" />
 
-
-      {/* Alignment group */}
       <ToggleGroup
         type="single"
         size="sm"

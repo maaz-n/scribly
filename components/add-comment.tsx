@@ -83,7 +83,7 @@ const AddComment = ({ postId }: AddCommentProps) => {
                                             {...field}
                                         />
                                     </FormControl>
-                                    <Button type="submit" className='w-1/4 mx-auto' disabled={isLoading}>
+                                    <Button type="submit" className='w-1/4 min-w-fit mx-auto' disabled={isLoading}>
                                         {isLoading ? (
                                             <div className='flex gap-2 items-center'>
                                                 <Loader2 className='animate-spin'/>

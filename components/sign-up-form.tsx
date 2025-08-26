@@ -98,7 +98,6 @@ export function SignupForm({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="flex flex-col gap-5">
-                {/* Full Name */}
                 <FormField
                   control={form.control}
                   name="name"
@@ -117,7 +116,6 @@ export function SignupForm({
                   )}
                 />
 
-                {/* Email */}
                 <FormField
                   control={form.control}
                   name="email"
@@ -157,7 +155,6 @@ export function SignupForm({
                   )}
                 />
 
-                {/* Buttons */}
                 <div className="flex flex-col gap-3">
                   <Button
                     type="submit"
@@ -192,7 +189,6 @@ export function SignupForm({
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 Already have an account?{" "}
                 <a href="/login" className="font-medium text-primary hover:underline">

@@ -21,27 +21,14 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
         )
     }
 
-    const checkAuthor = async () => {
-        const session = await auth.api.getSession({
-            headers: await headers()
-        })
+    const currentUser = await getCurrentUser()
 
-        const loggedInUser = session?.user.id
-        const postAuthor = post.post.authorId
-        if (loggedInUser == postAuthor) {
-            return true
-        } else {
-            return false
-        }
-
-
-    }
-    const isAuthor = await checkAuthor();
+    
+    const isAuthor = currentUser?.id === post.post.authorId
 
     const likes = await getPostLikes(post.post.id)
     if(!likes) return;
 
-    const currentUser = await getCurrentUser()
 
     const likeState = likes.some((like) => like.userId == currentUser?.id)
 

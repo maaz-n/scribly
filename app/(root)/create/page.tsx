@@ -91,7 +91,6 @@ export default function CreateBlogPage() {
   return (
     <section className="min-h-screen pt-40 bg-background py-16 px-6">
       <div className="max-w-5xl mx-auto">
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -104,7 +103,6 @@ export default function CreateBlogPage() {
           </p>
         </motion.div>
 
-        {/* Blog Form */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}

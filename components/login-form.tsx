@@ -110,7 +110,6 @@ export function LoginForm({
               )}
             />
 
-            {/* Password */}
             <FormField
               control={form.control}
               name="password"
@@ -131,7 +130,6 @@ export function LoginForm({
               )}
             />
 
-            {/* Buttons */}
             <div className="flex flex-col gap-3">
               <Button
                 type="submit"
@@ -166,7 +164,6 @@ export function LoginForm({
             </div>
           </div>
 
-          {/* Footer */}
           <div className="mt-6 text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <a href="/sign-up" className="font-medium text-primary hover:underline">
