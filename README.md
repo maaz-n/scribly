@@ -21,9 +21,9 @@ It started as a personal learning project to explore different aspects of web de
 ## 🛠️ Tech Stack
 
 - **Frontend & Backend**: [Next.js](https://nextjs.org/)  
-- **Database Hosting**: [Xata](https://xata.io/)  
+- **Database Hosting**: [Xata](https://lite.xata.io/)  
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/)  
-- **Authentication**: [Better Auth](https://better-auth.vercel.app/)  
+- **Authentication**: [Better Auth](https://better-auth.com/)  
 - **Text Editor**: [TipTap](https://tiptap.dev/)  
 
 ---
