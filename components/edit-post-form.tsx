@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import {
@@ -19,13 +19,14 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import RichTextEditor from './rich-text-editor'
 import { Button } from './ui/button'
+import { Loader2 } from 'lucide-react'
 
 
 const formSchema = z.object({
     imageUrl: z.url("Enter a valid URL"),
     title: z.string().min(1),
     slug: z.string(),
-    content: z.string().min(20, "Content should be atleast 20 characters").max(2000, "Content can be upto 2000 characters")
+    content: z.string().min(20, "Content should be atleast 20 characters")
 })
 
 interface EditPostFormProps {
@@ -34,6 +35,7 @@ interface EditPostFormProps {
 
 const EditPostForm = ({ post }: EditPostFormProps) => {
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
     function slugify(title: string) {
         const slug = title.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "")
         return slug
@@ -53,7 +55,7 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
-
+            setIsLoading(true)
             const response = await updatePost(
                 {
                     id,
@@ -69,13 +71,15 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
             }
         } catch (error) {
             console.error(error)
+        } finally {
+            setIsLoading(false)
         }
 
     }
 
     return (
         <section className="min-h-screen pt-40 bg-background py-16 px-6">
-            <div className="max-w-fit mx-auto">
+            <div className="max-w-5xl mx-auto">
                 {/* Heading */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -164,9 +168,17 @@ const EditPostForm = ({ post }: EditPostFormProps) => {
 
                             <Button
                                 type="submit"
-                                className="w-full font-semibold"
+                                className="w-1/4 mx-auto block font-semibold"
+                                disabled={isLoading}
                             >
-                                Update Post
+                                {isLoading ? (
+                                    <div className="flex items-center gap-2 justify-center">
+                                        <Loader2 className="animate-spin" />
+                                        <span>Updating...</span>
+                                    </div>
+                                ) : (
+                                    <span>Update blog</span>
+                                )}
                             </Button>
                         </form>
                     </Form>

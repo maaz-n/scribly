@@ -29,7 +29,6 @@ const formSchema = z.object({
   content: z
     .string()
     .min(20, "Content should be at least 20 characters")
-    .max(2000, "Content can be up to 2000 characters"),
 })
 
 export default function CreateBlogPage() {
@@ -91,7 +90,7 @@ export default function CreateBlogPage() {
 
   return (
     <section className="min-h-screen pt-40 bg-background py-16 px-6">
-      <div className="max-w-fit mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -177,7 +176,7 @@ export default function CreateBlogPage() {
 
               <Button
                 type="submit"
-                className="w-full font-semibold"
+                className="w-1/4 mx-auto block font-semibold"
                 disabled={isLoading}
               >
                 {isLoading ? (

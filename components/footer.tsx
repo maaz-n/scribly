@@ -20,9 +20,8 @@ export default function FooterSection() {
                 </div>
 
                 <div className="my-8 flex justify-center items-center gap-6 text-sm">
-                  <span className='text-muted-foreground text-sm flex items-center gap-2'>Check out the code <MoveRight/></span>
                     <Link
-                        href="#"
+                        href="https://github.com/maaz-n/scribly"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="X/Twitter"

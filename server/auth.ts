@@ -28,7 +28,7 @@ export const signupUser = async (name: string, email: string, password: string) 
             },
         });
 
-        return {succes: true, message: "Account created successfully"}
+        return {success: true, message: "Account created successfully"}
     } catch (error) {
         const e = error as Error
         return { success: false, message: e.message }

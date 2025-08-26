@@ -123,6 +123,7 @@ export function LoginForm({
                       type="password"
                       {...field}
                       className="rounded-xl border-input bg-background focus:ring-2 focus:ring-primary/50 transition-all"
+                      autoComplete="off"
                     />
                   </FormControl>
                   <FormMessage />
