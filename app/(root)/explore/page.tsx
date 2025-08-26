@@ -10,7 +10,7 @@ export default async function ExplorePage() {
         {/* Page Heading */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground">
-            Explore Blogs
+            Explore <span className="text-primary">Blogs</span>
           </h1>
           <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
             Discover insightful blogs from different authors and topics.  

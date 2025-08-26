@@ -116,10 +116,7 @@ export function LoginForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center justify-between text-sm">
                     <FormLabel className="font-medium text-foreground">Password</FormLabel>
-                    <a href="#" className="text-primary hover:underline">Forgot password?</a>
-                  </div>
                   <FormControl>
                     <Input
                       placeholder="********"

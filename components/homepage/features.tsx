@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { PenLine, Users, Share2, Sparkles } from "lucide-react"
+import { PenLine, Users, Share2, FilePenLine } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const features = [
@@ -21,9 +21,9 @@ const features = [
     desc: "Publish with one click and share your ideas instantly.",
   },
   {
-    icon: Sparkles,
-    title: "Smart Tools",
-    desc: "Use AI-assisted tools to refine your writing and spark creativity.",
+    icon: FilePenLine,
+    title: "Rich Text Editor",
+    desc: "Format your content with a professional editor that brings your writing to life.",
   },
 ]
 

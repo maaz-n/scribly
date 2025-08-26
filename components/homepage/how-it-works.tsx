@@ -11,8 +11,8 @@ const steps = [
   },
   {
     icon: <Edit3 className="w-6 h-6 text-primary" />,
-    title: "Refine with Tools",
-    desc: "Use smart formatting and AI-powered suggestions to improve.",
+    title: "Format with Ease",
+    desc: "Use our rich text editor to add structure, style, and clarity.",
   },
   {
     icon: <Upload className="w-6 h-6 text-primary" />,

@@ -48,7 +48,7 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
           href="/"
           className="text-xl md:text-2xl font-bold tracking-tight"
         >
-          MyApp
+          Scribly
         </Link>
 
         {/* Desktop Links */}

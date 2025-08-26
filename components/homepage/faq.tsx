@@ -5,37 +5,38 @@ import { motion } from 'framer-motion'
 
 export default function FAQsFour() {
   const faqItems = [
-    {
-      id: "item-1",
-      question: "How do I create a blog post?",
-      answer:
-        "Simply sign up, go to your dashboard, and click 'New Post'. You can write, format, and publish your content instantly.",
-    },
-    {
-      id: "item-2",
-      question: "Is there a cost to use the platform?",
-      answer:
-        "Our basic plan is completely free. Premium features like advanced analytics and custom domains are available on paid plans.",
-    },
-    {
-      id: "item-3",
-      question: "Can I customize the look of my blog?",
-      answer:
-        "Yes, you can choose from multiple themes, customize colors, and even add your own branding for a unique style.",
-    },
-    {
-      id: "item-4",
-      question: "Do you support collaborations?",
-      answer:
-        "Absolutely. You can invite co-authors, manage roles, and collaborate on drafts seamlessly with real-time updates.",
-    },
-    {
-      id: "item-5",
-      question: "Is my content secure?",
-      answer:
-        "We use industry-standard encryption and regular backups to make sure your content is always safe and accessible.",
-    },
-  ]
+  {
+    id: "item-1",
+    question: "How do I start writing?",
+    answer:
+      "Just sign up, and click 'Create Post' to begin writing.",
+  },
+  {
+    id: "item-2",
+    question: "Is it free to use?",
+    answer:
+      "Yes, Scribly is completely free to use for writing and publishing your blogs.",
+  },
+  {
+    id: "item-3",
+    question: "Can I format my posts?",
+    answer:
+      "Of course! Our rich text editor lets you add headings, lists, links, and more.",
+  },
+  {
+    id: "item-4",
+    question: "Who can read my blogs?",
+    answer:
+      "Anyone can read your published posts by visiting your blog link.",
+  },
+  {
+    id: "item-5",
+    question: "Do I need coding skills?",
+    answer:
+      "Not at all. Scribly is built to be simple and user-friendly for everyone.",
+  },
+]
+
 
   return (
     <section className="py-16 md:py-24">

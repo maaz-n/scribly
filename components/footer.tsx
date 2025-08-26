@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Separator } from './ui/separator'
 import { Github, MoveRight } from 'lucide-react'
 
 
@@ -11,7 +10,7 @@ export default function FooterSection() {
                     href="/"
                     aria-label="go home"
                     className="mx-auto block size-fit">
-                    <p className='text-4xl font-bold'>Blogify</p>
+                    <p className='text-4xl font-bold'>Scribly</p>
                 </Link>
 
                 <div className='flex gap-5 font-bold justify-center mt-5'>
@@ -31,7 +30,7 @@ export default function FooterSection() {
                         <Github/>
                     </Link>
                 </div>
-                <span className="text-muted-foreground block text-center text-sm"> © {new Date().getFullYear()} WorldJournal, All rights reserved</span>
+                <span className="text-muted-foreground block text-center text-sm"> © {new Date().getFullYear()} Scribly, All rights reserved</span>
             </div>
         </footer>
     )
