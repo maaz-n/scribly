@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Github, MoveRight } from 'lucide-react'
+import { Github } from 'lucide-react'
 
 
 export default function FooterSection() {

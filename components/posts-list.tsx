@@ -20,6 +20,10 @@ export default function PostsList({ posts }: PostsAndAuthors) {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm])
+
   const filteredPosts = posts?.filter((post) => post.post.title.toLowerCase().includes(searchTerm.toLowerCase()))
   if (!filteredPosts) return;
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE
@@ -30,13 +34,11 @@ export default function PostsList({ posts }: PostsAndAuthors) {
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [searchTerm])
+  
 
   return (
     <>
-      <SearchBar className="mb-3 mx-auto" setSearchTerm={setSearchTerm} />
+      <SearchBar className="mb-5 mx-auto" setSearchTerm={setSearchTerm} />
       {currentPosts.length > 0 ? (
 
         < div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

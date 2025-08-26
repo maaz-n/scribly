@@ -37,10 +37,14 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
 
     }
     const isAuthor = await checkAuthor();
-    const likes = await getPostLikes(post.post.id)
-    const currentUser = await getCurrentUser()
 
-    const likeState = likes?.some((like) => like.userId == currentUser?.id)
+    const likes = await getPostLikes(post.post.id)
+    if(!likes) return;
+
+    const currentUser = await getCurrentUser()
+    if(!currentUser) return;
+
+    const likeState = likes.some((like) => like.userId == currentUser?.id)
 
     const postCommentsWithAuthor = await getPostCommentsWithAuthors(post.post.id)
 
@@ -96,10 +100,10 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
       {/* Like & Comment */}
       <div className="flex items-center gap-6 mt-10 border-t pt-6">
         <LikeButton
-          likesCount={likes?.length!}
-          likeState={likeState!}
+          likesCount={likes.length}
+          likeState={likeState}
           postId={post.post.id}
-          userId={currentUser?.id!}
+          userId={currentUser?.id}
         />
       </div>
 
