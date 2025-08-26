@@ -11,7 +11,7 @@ interface LikeButtonProps {
     likesCount: number,
     likeState: boolean,
     postId: string,
-    userId: string
+    userId?: string
 }
 
 const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) => {
@@ -21,7 +21,7 @@ const LikeButton = ({ likesCount, likeState, postId, userId }: LikeButtonProps) 
 
     const handleLike = async () => {
         const authenticated = await getCurrentUser()
-        if(!authenticated){
+        if(!authenticated || !userId){
             redirect("/login")
         }
         if (isLiked) {

@@ -42,7 +42,6 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     if(!likes) return;
 
     const currentUser = await getCurrentUser()
-    if(!currentUser) return;
 
     const likeState = likes.some((like) => like.userId == currentUser?.id)
 
