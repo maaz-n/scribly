@@ -35,11 +35,11 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     const postCommentsWithAuthor = await getPostCommentsWithAuthors(post.post.id)
 
     return (
-        <article className="min-h-screen pt-40 bg-background py-16 px-6">
+        <article className="min-h-screen pt-40 bg-background py-16 px-3 md:px-6">
   <div className="max-w-4xl mx-auto">
     
     {/* Blog Header Image */}
-    <div className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden shadow mb-10">
+    <div className="relative w-full h-50 md:h-96 rounded-xl overflow-hidden shadow mb-10">
       <Image
         src={post.post.imageUrl}
         alt={post.post.title}
@@ -50,10 +50,10 @@ const SinglePost = async ({ params }: { params: Promise<{ slug: string }> }) => 
     </div>
 
     {/* Content Wrapper */}
-    <div className="bg-card text-card-foreground shadow rounded-xl p-8">
+    <div className="bg-card text-card-foreground shadow rounded-xl p-8 px-5 md:px-8">
       
       {/* Title */}
-      <h1 className="text-4xl font-bold mb-4">
+      <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
         {post.post.title}
       </h1>
 
