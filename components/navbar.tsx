@@ -8,6 +8,8 @@ import { ModeSwitcher } from "./mode-switcher"
 import LogoutButton from "./logout-button"
 import CreatePostButton from "./create-post-button"
 import LoginButton from "./login-button"
+import Image from "next/image"
+import UserMenu from "./ui/user-menu"
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -16,9 +18,10 @@ const navLinks = [
 
 interface NavbarProps {
   isAuthenticated: boolean
+  user: any
 }
 
-export default function Navbar({ isAuthenticated }: NavbarProps) {
+export default function Navbar({ isAuthenticated, user }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -66,7 +69,7 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
           {isAuthenticated ? (
             <div className="flex gap-3">
               <CreatePostButton />
-              <LogoutButton />
+              <UserMenu user={user}/>
             </div>
           ) : (
             <LoginButton />

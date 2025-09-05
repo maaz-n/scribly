@@ -8,9 +8,10 @@ const RootLayout = async ({children}: {children: React.ReactNode}) => {
     const session = await auth.api.getSession({
     headers: await headers()
   })
+  const user = session?.user
   return (
     <>
-    <Navbar isAuthenticated={!!session}/>
+    <Navbar isAuthenticated={!!session} user={user}/>
     <div>{children}</div>
     <Footer/>
     </>
