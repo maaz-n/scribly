@@ -44,7 +44,8 @@ const AddComment = ({ postId }: AddCommentProps) => {
             setIsLoading(true)
             const authenticated = await getCurrentUser()
             if (!authenticated) {
-                redirect("/login")
+                router.push("/login")
+                return;
             }
             const { id } = authenticated
             const { comment } = values
