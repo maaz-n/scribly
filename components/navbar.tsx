@@ -55,26 +55,34 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex md:items-center gap-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-          <ModeSwitcher />
-          {isAuthenticated ? (
-            <div className="flex gap-3">
-              <CreatePostButton />
-              <UserMenu user={user}/>
-            </div>
-          ) : (
-            <LoginButton />
-          )}
-        </div>
+        <div className="hidden md:flex md:items-center gap-6">
+  {/* nav links */}
+  {navLinks.map((link) => (
+    <Link
+      key={link.name}
+      href={link.href}
+      className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+    >
+      {link.name}
+    </Link>
+  ))}
+
+  {/* dark/light mode */}
+  <ModeSwitcher />
+
+  {isAuthenticated ? (
+    <div className="flex items-center gap-4">
+      <CreatePostButton />
+
+      {/* user menu wrapper */}
+      <div className="flex items-center">
+        <UserMenu user={user} />
+      </div>
+    </div>
+  ) : (
+    <LoginButton />
+  )}
+</div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-4">
@@ -85,6 +93,9 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          {isAuthenticated && (
+            <UserMenu user={user}/>
+          )}
         </div>
       </motion.div>
 
@@ -110,10 +121,7 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
                 </Link>
               ))}
               {isAuthenticated && (
-                <div className="flex gap-3">
                   <CreatePostButton />
-                  <LogoutButton />
-                </div>
               )}
               {!isAuthenticated && <LoginButton />}
             </div>

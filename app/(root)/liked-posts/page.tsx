@@ -1,12 +1,13 @@
 import { LikedPostCard } from '@/components/liked-post-card'
 import { getCurrentUser } from '@/server/auth'
 import { getLikedPosts } from '@/server/post'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 const LikedPostsPage = async () => {
 
     const currentUser = await getCurrentUser()
-    if (!currentUser) return
+    if (!currentUser) redirect("/login")
     const likedPosts = await getLikedPosts(currentUser.id)
     if (!likedPosts) return;
 
@@ -31,7 +32,7 @@ const LikedPostsPage = async () => {
                         </div>
                     ))
                 ) : (
-                    <h1 className="text-4xl font-bold text-foreground">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl text-center mt-20 font-light text-foreground">
                         You don't have any liked posts
                     </h1>
                 )}
