@@ -5,10 +5,8 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { ModeSwitcher } from "./mode-switcher"
-import LogoutButton from "./logout-button"
 import CreatePostButton from "./create-post-button"
 import LoginButton from "./login-button"
-import Image from "next/image"
 import UserMenu from "./ui/user-menu"
 
 const navLinks = [
@@ -18,7 +16,15 @@ const navLinks = [
 
 interface NavbarProps {
   isAuthenticated: boolean
-  user: any
+  user?: {
+    id: string;
+    email: string;
+    emailVerified: boolean;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    image?: string | null | undefined;
+  }
 }
 
 export default function Navbar({ isAuthenticated, user }: NavbarProps) {
@@ -56,33 +62,33 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
 
         {/* Desktop Links */}
         <div className="hidden md:flex md:items-center gap-6">
-  {/* nav links */}
-  {navLinks.map((link) => (
-    <Link
-      key={link.name}
-      href={link.href}
-      className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
-    >
-      {link.name}
-    </Link>
-  ))}
+          {/* nav links */}
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+            >
+              {link.name}
+            </Link>
+          ))}
 
-  {/* dark/light mode */}
-  <ModeSwitcher />
+          {/* dark/light mode */}
+          <ModeSwitcher />
 
-  {isAuthenticated ? (
-    <div className="flex items-center gap-4">
-      <CreatePostButton />
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              <CreatePostButton />
 
-      {/* user menu wrapper */}
-      <div className="flex items-center">
-        <UserMenu user={user} />
-      </div>
-    </div>
-  ) : (
-    <LoginButton />
-  )}
-</div>
+              {/* user menu wrapper */}
+              <div className="flex items-center">
+                <UserMenu user={user} />
+              </div>
+            </div>
+          ) : (
+            <LoginButton />
+          )}
+        </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-4">
@@ -94,7 +100,7 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
           {isAuthenticated && (
-            <UserMenu user={user}/>
+            <UserMenu user={user} />
           )}
         </div>
       </motion.div>
@@ -121,7 +127,7 @@ export default function Navbar({ isAuthenticated, user }: NavbarProps) {
                 </Link>
               ))}
               {isAuthenticated && (
-                  <CreatePostButton />
+                <CreatePostButton />
               )}
               {!isAuthenticated && <LoginButton />}
             </div>

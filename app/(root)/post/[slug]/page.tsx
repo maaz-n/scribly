@@ -1,8 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { auth } from '@/lib/auth'
 import { getPostCommentsWithAuthors, getPostLikes, getPostWithAuthorBySlug } from '@/server/post'
-import { headers } from 'next/headers'
 import DeleteButton from '@/components/delete-button'
 import EditButton from '@/components/edit-button'
 import LikeButton from '@/components/like-button'

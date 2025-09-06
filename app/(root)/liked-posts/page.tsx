@@ -26,14 +26,14 @@ const LikedPostsPage = async () => {
 
                 {likedPosts.length > 0 ? (
                     likedPosts.map((post) => (
-                        <div key={post?.id} className='mb-4'>
+                        <div key={post.id} className='mb-4'>
 
-                            <LikedPostCard  title={post?.title!} content={post?.content!} image={post?.imageUrl!} slug={post?.slug!} />
+                            <LikedPostCard  title={post.title!} content={post.content!} image={post.imageUrl!} slug={post.slug!} />
                         </div>
                     ))
                 ) : (
                     <h1 className="text-2xl md:text-3xl lg:text-4xl text-center mt-20 font-light text-foreground">
-                        You don't have any liked posts
+                        You don&apos;t have any liked posts
                     </h1>
                 )}
             </div>

@@ -8,16 +8,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Heart, LogOut } from "lucide-react"
+import { Heart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import LogoutButton from "../logout-button"
 
 interface UserMenuProps {
     user?: {
-        name: string
-        email: string
-        image?: string
+        id: string;
+        email: string;
+        emailVerified: boolean;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        image?: string | null | undefined;
     }
 }
 
@@ -63,7 +67,7 @@ const UserMenu = ({ user }: UserMenuProps) => {
                 </DropdownMenuItem>
 
                 <DropdownMenuItem className="flex items-center gap-2 ">
-                    <LogoutButton/>
+                    <LogoutButton />
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

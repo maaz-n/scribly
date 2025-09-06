@@ -110,8 +110,8 @@ export const unlikePost = async (postId: string, userId: string) => {
 
 export const getLikedPosts = async (userId: string) => {
     try {
-        const posts = await db.select().from(postLikes).leftJoin(post, eq(postLikes.postId, post.id)).where(eq(postLikes.
-            userId, userId));
+        const posts = await db.select().from(postLikes).innerJoin(post, eq(postLikes.postId, post.id)).where(eq(postLikes.userId, userId))
+
         const onlyPosts = posts.map((row) => row.post)
         return onlyPosts
     } catch (error) {
