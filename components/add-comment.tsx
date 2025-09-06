@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import { addComment } from '@/server/post'
 import { getCurrentUser } from '@/server/auth'
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 
